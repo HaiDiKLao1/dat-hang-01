@@ -1,0 +1,104 @@
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Form Đặt Hàng - Shop Giày</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .container {
+      background: white;
+      padding: 20px 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      width: 350px;
+    }
+    h2 {
+      text-align: center;
+      color: #333;
+    }
+    label {
+      font-weight: bold;
+      margin-top: 10px;
+      display: block;
+    }
+    input {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button {
+      margin-top: 15px;
+      padding: 10px;
+      width: 100%;
+      background: #007bff;
+      border: none;
+      color: white;
+      font-size: 16px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>🛒 Đặt Hàng</h2>
+    <form id="orderForm">
+      <label>Họ và Tên:</label>
+      <input type="text" id="name" required>
+
+      <label>Số điện thoại:</label>
+      <input type="tel" id="phone" required>
+
+      <label>Địa chỉ:</label>
+      <input type="text" id="address" required>
+
+      <label>Sản phẩm:</label>
+      <input type="text" id="product" required>
+
+      <label>Mã giảm giá:</label>
+      <input type="text" id="discount">
+
+      <button type="submit">Gửi đơn</button>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById("orderForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const name = document.getElementById("name").value;
+      const phone = document.getElementById("phone").value;
+      const address = document.getElementById("address").value;
+      const product = document.getElementById("product").value;
+      const discount = document.getElementById("discount").value;
+
+      const content = 
+        "=== ĐƠN HÀNG MỚI ===\n" +
+        "👤 Họ Tên: " + name + "\n" +
+        "📞 Số điện thoại: " + phone + "\n" +
+        "🏠 Địa chỉ: " + address + "\n" +
+        "👟 Sản phẩm: " + product + "\n" +
+        "🎟️ Mã giảm giá: " + (discount || "Không có") + "\n";
+
+      const blob = new Blob([content], { type: "text/plain;charset=utf-8" });
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = "order.txt";
+      link.click();
+    });
+  </script>
+</body>
+</html>
